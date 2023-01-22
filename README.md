@@ -1,0 +1,1 @@
+# schema-spy-docs
