@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./initdb.d:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  schemaspy:
+    container_name: schemaspy
+    image: schemaspy/schemaspy:snapshot
+    volumes:
+      - ./schemaspy.properties:/schemaspy.properties 
+      - ./schemaspy/output:/output 
+    depends_on:
+      - db
+    environment:
+      SCHEMASPY_OUTPUT: /output 
